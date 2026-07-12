@@ -21,8 +21,10 @@ export default $config({
     };
   },
   async run() {
+    // previews live inside the staging child zone (Pattern A: the dev account
+    // only owns staging.<sub>.<domain>), so preview hosts hang off __STAGING_DOMAIN__
     const domain =
-      TIER === 'production' ? '__DOMAIN__' : TIER === 'staging' ? '__STAGING_DOMAIN__' : `${$app.stage}.__DOMAIN__`;
+      TIER === 'production' ? '__DOMAIN__' : TIER === 'staging' ? '__STAGING_DOMAIN__' : `${$app.stage}.__STAGING_DOMAIN__`;
     new sst.aws.Nextjs('Web', { domain });
   },
 });
