@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "type-check": "tsc --noEmit",
     "start": "next start",
     "deploy": "sst deploy",
     "check-tokens": "bash scripts/check-tokens.sh"
