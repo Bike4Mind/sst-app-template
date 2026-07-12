@@ -1,0 +1,18 @@
+# Preview teardown on PR close. no branches filter, by design (b4m-infra#185:
+# retargeted PRs must still clean up). cleanup_env avoids the bound-env delete bug.
+name: Preview cleanup
+on:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  id-token: write
+  contents: read
+  deployments: write
+
+jobs:
+  cleanup:
+    uses: __WORKFLOW_TEMPLATES_CLEANUP_REF__
+    with:
+      cleanup_env: preview_cleanup
+    secrets: inherit

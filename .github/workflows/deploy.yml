@@ -1,0 +1,28 @@
+# Paved-road deploy shim. Nexus substitutes the __TOKENS__ at scaffold time.
+name: Deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  deployments: write
+
+jobs:
+  deploy:
+    uses: __WORKFLOW_TEMPLATES_REF__
+    with:
+      previews: __PREVIEWS__
+      preview_domain: __PREVIEW_DOMAIN__
+      staging_env: staging
+      prod_env: production
+      prod_branch: main
+      pnpm_version: 10.34.1
+      node_version: 24
+    secrets: inherit

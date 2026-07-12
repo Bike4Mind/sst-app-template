@@ -1,0 +1,33 @@
+# Canonical org config (b4m-infra#185 Deliverable 9a). security alerts on, scheduled version PRs off.
+version: 2
+registries:
+  npm-private:
+    type: npm-registry
+    url: https://registry.npmjs.org
+    token: ${{ secrets.NPM_TOKEN }}
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 0
+    registries:
+      - npm-private
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      dev-dependencies:
+        dependency-type: development
+      aws-sdk:
+        patterns: ["@aws-sdk/*"]
+      next-js:
+        patterns: ["next", "react", "react-dom"]
+      sst:
+        patterns: ["sst"]
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
