@@ -14,5 +14,6 @@ jobs:
   cleanup:
     uses: __WORKFLOW_TEMPLATES_CLEANUP_REF__
     with:
+      sst_app: __APP_NAME__
       cleanup_env: preview_cleanup
     secrets: inherit

@@ -18,11 +18,14 @@ jobs:
   deploy:
     uses: __WORKFLOW_TEMPLATES_REF__
     with:
-      previews: __PREVIEWS__
-      preview_domain: __PREVIEW_DOMAIN__
+      sst_app: __APP_NAME__
+      staging_stage: staging
       staging_env: staging
+      prod_stage: production
       prod_env: production
       prod_branch: main
+      previews: __PREVIEWS__
+      preview_domain: __PREVIEW_DOMAIN__
+      staging_url: https://__STAGING_DOMAIN__
       pnpm_version: 10.34.1
-      node_version: 24
     secrets: inherit

@@ -10,8 +10,6 @@
  * This template requires ZERO secrets to deploy green. that's deliberate:
  * the first deploy proves infra, not app config.
  */
-const TIER = process.env.SST_STAGE_TIER ?? 'staging';
-
 export default $config({
   app(input) {
     return {
@@ -21,6 +19,8 @@ export default $config({
     };
   },
   async run() {
+    // SST_STAGE_TIER when the shim exports it (b4m-infra#185, pending); stage-name derivation until then
+    const TIER = process.env.SST_STAGE_TIER ?? ($app.stage === 'production' ? 'production' : $app.stage === 'staging' ? 'staging' : 'preview');
     // previews live inside the staging child zone (Pattern A: the dev account
     // only owns staging.<sub>.<domain>), so preview hosts hang off __STAGING_DOMAIN__
     const domain =
